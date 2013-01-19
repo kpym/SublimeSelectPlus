@@ -1,0 +1,40 @@
+/*
+Select Plus keymap for Windows
+*/
+[
+	// Move Select
+	{ "keys": ["ctrl+left"], "command": "move_in_select", "args": {"forward": false}, "context":
+        [
+			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
+		]
+	},
+	{ "keys": ["ctrl+right"], "command": "move_in_select", "args": {"forward": true}, "context":
+        [
+			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
+		]
+	},
+	{ "keys": ["alt+left"], "command": "move_select", "args": {"forward": false}, "context":
+        [
+			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
+		]
+	},
+	{ "keys": ["alt+right"], "command": "move_select", "args": {"forward": true}, "context":
+        [
+			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
+		]
+	},
+
+	// Manage Select
+	// 	Possible actions are
+	//		save : save the current selection
+	//		restore : restore the saved selection (if any)
+	//		add : add the saved selection (if any) to the current selection
+	//		subtract : subtract the saved selection (if any) from the current selection 
+	//		exchange : exchange the current selection with the saved one (if any)
+	{ "keys": ["alt+s", "s"], "command": "manage_select", "args": {"action": "save"}},
+	{ "keys": ["alt+s", "="], "command": "manage_select", "args": {"action": "restore"}},
+	{ "keys": ["alt+s", "+"], "command": "manage_select", "args": {"action": "add"}},
+	{ "keys": ["alt+s", "-"], "command": "manage_select", "args": {"action": "subtract"}},
+	{ "keys": ["alt+s", "x"], "command": "manage_select", "args": {"action": "exchange"}}
+	
+]
