@@ -35,6 +35,7 @@ Select Plus keymap for Windows
 	{ "keys": ["alt+s", "="], "command": "manage_select", "args": {"action": "restore"}},
 	{ "keys": ["alt+s", "+"], "command": "manage_select", "args": {"action": "add"}},
 	{ "keys": ["alt+s", "-"], "command": "manage_select", "args": {"action": "subtract"}},
-	{ "keys": ["alt+s", "x"], "command": "manage_select", "args": {"action": "exchange"}}
-	
+	{ "keys": ["alt+s", "x"], "command": "manage_select", "args": {"action": "exchange"}},
+	{ "keys": ["alt+s", "!"], "command": "manage_select", "args": {"action": "inverse"}},
+	{ "keys": ["alt+s", "*"], "command": "manage_select", "args": {"action": "repeate"}}
 ]

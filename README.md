@@ -31,8 +31,16 @@ How to use
 * To **add selection** : `alt+s`, `+`
 * To **subtract selection** : `alt+s`, `-`
 * To **exchange selection** : `alt+s`, `x`
+* To **inverse selection** : `alt+s`, `!`
+* To **repeate selection** : `alt+s`, `*`
 
 
 Commands
 --------
 See Default.sublime-keymap in this folder
+
+BUG
+---
+There is a bug in the Sublime Text 2 API :
+If a < b < c, when we subtract the region [a,b] from the region [a,c] the result is [a,a] and not the expected [b,c]. 
+So in some situations **subtract selection** is ont working properly.
