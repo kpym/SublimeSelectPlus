@@ -19,6 +19,10 @@ class Selection(object):
 class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
     def run(self, edit, action="save"):
         regions = self.view.sel()
+        print "----- begin -----"
+        for region in regions:
+                print(region)
+        print "----- begin -----"
         saved_regions = self.GetRegions()
 
         if action == "save" or action == "exchange":
@@ -35,23 +39,67 @@ class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
             for region in saved_regions:
                 regions.subtract(sublime.Region(region.a,region.b))
 
-        if action == "inverse" :
+        if action == "inverse_old" :
             n = 0 # the number of new regions
             a = 0
             for region in regions:
+                print(region)
+                if region.empty():
+                    print " : is empty!"
+                    continue
+                b = region.begin()
+                print "delete region"
+                regions.subtract(sublime.Region(region.a,region.b))
+                if (a != b) :
+                    print "new region (%d,%d)"%(a,b)
+                    regions.add(sublime.Region(a,b))
+                    n += 1
+                else:
+                    print "skip region (%d,%d)"%(a,b)
+                a = region.end()
+            b = self.view.size()
+            if (a != b or n == 0) :
+                print "new region (%d,end)"%a
+                regions.add(sublime.Region(a,b))
+
+        if action == "inverse" :
+            regions_temp = self.CopyRegions(regions)
+            regions.clear()
+            n = 0 # the number of new regions
+            a = 0
+            for region in regions_temp:
+                print(region)
                 if region.empty():
                     continue
                 b = region.begin()
-                regions.subtract(sublime.Region(region.a,region.b))
                 if (a != b) :
                     regions.add(sublime.Region(a,b))
                     n += 1
                 a = region.end()
-            b = self.view.size()    
+
+            b = self.view.size()
             if (a != b or n == 0) :
                 regions.add(sublime.Region(a,b))
-            return    
-        
+                
+        if action == "inverse_new" :
+            regions_temp = self.CopyRegions(regions)
+            first = True
+            for region in regions_temp :
+                if first :
+                    first = False
+                    if region.begin() == 0 :
+                        a = region.end()
+                    else :
+                        a = 0
+                    b = self.view.size()    
+                    regions.clear()
+                    regions.add(sublime.Region(a,b))
+                if not region.empty():    
+                    regions.subtract(region)
+
+            if not regions : 
+                regions.add(sublime.Region(b,b))
+
         if action == "repeate" :            
             def repeate_done(str_num):
                 try:
@@ -72,4 +120,9 @@ class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
             except :
                 str_num = ''    
             self.view.window().show_input_panel("number to repeate", str_num, repeate_done, None, None)        
-            return
+        
+        regions = self.view.sel()
+        print "----- end -----"
+        for region in regions:
+                print(region)
+        print "----- end -----"
