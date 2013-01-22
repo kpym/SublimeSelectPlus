@@ -39,29 +39,6 @@ class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
             for region in saved_regions:
                 regions.subtract(sublime.Region(region.a,region.b))
 
-        if action == "inverse_old" :
-            n = 0 # the number of new regions
-            a = 0
-            for region in regions:
-                print(region)
-                if region.empty():
-                    print " : is empty!"
-                    continue
-                b = region.begin()
-                print "delete region"
-                regions.subtract(sublime.Region(region.a,region.b))
-                if (a != b) :
-                    print "new region (%d,%d)"%(a,b)
-                    regions.add(sublime.Region(a,b))
-                    n += 1
-                else:
-                    print "skip region (%d,%d)"%(a,b)
-                a = region.end()
-            b = self.view.size()
-            if (a != b or n == 0) :
-                print "new region (%d,end)"%a
-                regions.add(sublime.Region(a,b))
-
         if action == "inverse" :
             regions_temp = self.CopyRegions(regions)
             regions.clear()
@@ -81,25 +58,6 @@ class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
             if (a != b or n == 0) :
                 regions.add(sublime.Region(a,b))
                 
-        if action == "inverse_new" :
-            regions_temp = self.CopyRegions(regions)
-            first = True
-            for region in regions_temp :
-                if first :
-                    first = False
-                    if region.begin() == 0 :
-                        a = region.end()
-                    else :
-                        a = 0
-                    b = self.view.size()    
-                    regions.clear()
-                    regions.add(sublime.Region(a,b))
-                if not region.empty():    
-                    regions.subtract(region)
-
-            if not regions : 
-                regions.add(sublime.Region(b,b))
-
         if action == "repeate" :            
             def repeate_done(str_num):
                 try:
