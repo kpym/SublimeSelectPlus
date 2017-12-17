@@ -1,7 +1,8 @@
 import sublime, sublime_plugin
 
 class Selection(object):
-    saved = []
+    saved = [] # contain all saved regions
+    regions_copy = [] # copy of all regions
 
     def CopyRegions(self, regions) :
         return [region for region in regions]
@@ -19,10 +20,6 @@ class Selection(object):
 class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
     def run(self, edit, action="save"):
         regions = self.view.sel()
-        print "----- begin -----"
-        for region in regions:
-                print(region)
-        print "----- begin -----"
         saved_regions = self.GetRegions()
 
         if action == "save" or action == "exchange":
@@ -30,7 +27,7 @@ class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
 
         if action == "restore" or action == "exchange":
             if saved_regions :
-                regions.clear()    
+                regions.clear()
 
         if action == "restore"  or action == "exchange" or action == "add" :
             for region in saved_regions:
@@ -40,12 +37,11 @@ class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
                 regions.subtract(sublime.Region(region.a,region.b))
 
         if action == "inverse" :
-            regions_temp = self.CopyRegions(regions)
+            self.regions_copy = self.CopyRegions(regions)
             regions.clear()
             n = 0 # the number of new regions
             a = 0
-            for region in regions_temp:
-                print(region)
+            for region in self.regions_copy:
                 if region.empty():
                     continue
                 b = region.begin()
@@ -57,30 +53,49 @@ class ManageSelectCommand(sublime_plugin.TextCommand, Selection):
             b = self.view.size()
             if (a != b or n == 0) :
                 regions.add(sublime.Region(a,b))
-                
-        if action == "repeate" :            
-            def repeate_done(str_num):
-                try:
-                    self.num = int(str_num)
-                except exceptions.ValueError:
-                    return    
-                edit = self.view.begin_edit()
-                # ---------------------------
-                # repate for all regions
-                # ---------------------------    
-                for region in reversed(regions) :
-                    text = self.view.substr(region)
-                    self.view.replace(edit, region, text*self.num)
-                # ---------------------------    
-                self.view.end_edit(edit)
-            try :   
-                str_num = str(self.num)
-            except :
-                str_num = ''    
-            self.view.window().show_input_panel("number to repeate", str_num, repeate_done, None, None)        
-        
+            self.regions_copy = [] # free memory
+
+class ExtendSelection(sublime_plugin.TextCommand, Selection):
+    extendto_reg_key = "regions_with_input_text"
+    def run(self, edit, action="extend right"):
+        self.regions_copy = self.CopyRegions(self.view.sel())
+        sublime.active_window().show_input_panel("Extend selection to", "", self.on_done, self.on_change, self.on_cancel)
+
+    def on_done(self, user_input):
+        self.regions_copy = [] # free memory
+        self.view.erase_regions(self.extendto_reg_key)
+
+    def on_change(self, user_input):
         regions = self.view.sel()
-        print "----- end -----"
-        for region in regions:
-                print(region)
-        print "----- end -----"
+        regions.clear()
+        find_all = self.view.find_all(user_input, sublime.LITERAL) if user_input else []
+        find_all_len = len(find_all)
+        j = 0
+        for i,region in enumerate(self.regions_copy):
+            new_region = sublime.Region(region.a, region.b)
+            while (j < find_all_len):
+                if (region.b < region.a):
+                    if (find_all[j].end() <= region.b):
+                        if (i==0 or find_all[j].end() > self.regions_copy[i-1].end()):
+                            new_region = sublime.Region(region.a, find_all[j].end())
+                        j += 1
+                    else:
+                        break
+                else:
+                    if (find_all[j].begin() < region.b):
+                        j += 1
+                    else:
+                        if (i+1 >= len(self.regions_copy) or find_all[j].begin() < self.regions_copy[i+1].begin()):
+                            new_region = sublime.Region(region.a, find_all[j].begin())
+                        break
+            regions.add(new_region)
+        # Bug https://github.com/SublimeTextIssues/Core/issues/485
+        self.view.add_regions(self.extendto_reg_key, find_all, "string", "", sublime.DRAW_OUTLINED)
+
+    def on_cancel(self):
+        regions = self.view.sel()
+        regions.clear()
+        for region in self.regions_copy :
+            regions.add(sublime.Region(region.a, region.b))
+        self.regions_copy = [] # free memory
+        self.view.erase_regions(self.extendto_reg_key)

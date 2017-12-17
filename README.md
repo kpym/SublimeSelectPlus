@@ -1,9 +1,9 @@
 SelectPlus for Sublime Text 2
 ===============================
-This is a plugin for [Sublime Text 2](http://www.sublimetext.com/2).
+This is a plugin for [Sublime Text 2](http://www.sublimetext.com/2) and [Sublime Text 3](http://www.sublimetext.com/3).
 This plugin add some features to manage selections :
 
-- possibility to extend selections on the right and on the left using keyboard only 
+- possibility to extend selections on the right and on the left using keyboard only
 - possibility to save/restore/add/subtract/exchange selections
 
 
@@ -32,7 +32,7 @@ How to use
 * To **subtract selection** : `alt+s`, `-`
 * To **exchange selection** : `alt+s`, `x`
 * To **inverse selection** : `alt+s`, `!`
-* To **repeate selection** : `alt+s`, `*`
+* To **extend selection to** : `alt+s`, `t`
 
 
 Commands
@@ -41,6 +41,6 @@ See Default.sublime-keymap in this folder
 
 BUG
 ---
-There is a bug in the Sublime Text 2 API :
-If a < b < c, when we subtract the region [a,b] from the region [a,c] the result is [a,a] and not the expected [b,c]. 
+There is a bug in the Sublime Text 2 and 3 API `regions.subtract`:
+If a < b < c, when we subtract the region [a,b] from the region [a,c] the result is [a,a] and not the expected [b,c].
 So in some situations **subtract selection** is ont working properly.

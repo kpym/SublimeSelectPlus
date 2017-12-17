@@ -29,7 +29,7 @@ Select Plus keymap for Windows
 	//		save : save the current selection
 	//		restore : restore the saved selection (if any)
 	//		add : add the saved selection (if any) to the current selection
-	//		subtract : subtract the saved selection (if any) from the current selection 
+	//		subtract : subtract the saved selection (if any) from the current selection
 	//		exchange : exchange the current selection with the saved one (if any)
 	//		inverse : inverse the current selection
 	//		repeate : repeate the current selection a number of times
@@ -39,5 +39,5 @@ Select Plus keymap for Windows
 	{ "keys": ["alt+s", "-"], "command": "manage_select", "args": {"action": "subtract"}},
 	{ "keys": ["alt+s", "x"], "command": "manage_select", "args": {"action": "exchange"}},
 	{ "keys": ["alt+s", "!"], "command": "manage_select", "args": {"action": "inverse"}},
-	{ "keys": ["alt+s", "*"], "command": "manage_select", "args": {"action": "repeate"}}
+	{ "keys": ["alt+s", "t"], "command": "extend_selection", "args": {"action": "extend"}}
 ]
