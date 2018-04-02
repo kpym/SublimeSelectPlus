@@ -1,5 +1,5 @@
-SelectPlus for Sublime Text 2
-===============================
+SelectPlus for Sublime Text 2 and 3
+===================================
 This is a plugin for [Sublime Text 2](http://www.sublimetext.com/2) and [Sublime Text 3](http://www.sublimetext.com/3).
 This plugin add some features to manage selections :
 
@@ -16,11 +16,16 @@ For the moment:
 
 1. Open the Sublime Text 2 Packages folder
 
+  - ST2
     - OS X: ~/Library/Application Support/Sublime Text 2/Packages/
     - Windows: %APPDATA%/Sublime Text 2/Packages/
     - Linux: ~/.Sublime Text 2/Packages/
+  - for ST3
+    - OS X: ~/Library/Application Support/Sublime Text 3/Data/Packages/
+    - Windows: %programfiles%/Sublime Text 3/Data/Packages/
+    - Linux: ~/.Sublime Text 3/Data/Packages/
 
-2. clone this repo
+2. clone this repo (`git clone git://github.com/kpym/SublimeSelectPlus SelectPlus`).
 
 How to use
 ----------
