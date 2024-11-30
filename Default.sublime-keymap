@@ -4,26 +4,26 @@ Select Plus keymap for Windows
 [
 	// Move Select
 	{ "keys": ["ctrl+left"], "command": "move_in_select", "args": {"forward": false}, "context":
-        [
+    [
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
 		]
 	},
 	{ "keys": ["ctrl+right"], "command": "move_in_select", "args": {"forward": true}, "context":
-        [
+    [
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
 		]
 	},
 	{ "keys": ["alt+left"], "command": "move_select", "args": {"forward": false}, "context":
-        [
+    [
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
 		]
 	},
 	{ "keys": ["alt+right"], "command": "move_select", "args": {"forward": true}, "context":
-        [
+    [
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
 		]
 	},
-
+	
 	// Manage Select
 	// 	Possible actions are
 	//		save : save the current selection
@@ -39,5 +39,8 @@ Select Plus keymap for Windows
 	{ "keys": ["alt+s", "-"], "command": "manage_select", "args": {"action": "subtract"}},
 	{ "keys": ["alt+s", "x"], "command": "manage_select", "args": {"action": "exchange"}},
 	{ "keys": ["alt+s", "!"], "command": "manage_select", "args": {"action": "inverse"}},
-	{ "keys": ["alt+s", "t"], "command": "extend_selection", "args": {"action": "extend"}}
+	{ "keys": ["alt+s", "t"], "command": "extend_selection", "args": {"action": "literal"}},
+	{ "keys": ["alt+s", "T"], "command": "extend_selection", "args": {"action": "literal case sensitive"}},
+	{ "keys": ["alt+s", "r"], "command": "extend_selection", "args": {"action": "regex"}},
+	{ "keys": ["alt+s", "R"], "command": "extend_selection", "args": {"action": "regex case sensitive"}},
 ]

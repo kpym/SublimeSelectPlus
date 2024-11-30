@@ -37,7 +37,11 @@ How to use
 * To **subtract selection** : `alt+s`, `-`
 * To **exchange selection** : `alt+s`, `x`
 * To **inverse selection** : `alt+s`, `!`
-* To **extend selection to** : `alt+s`, `t`
+* To **extend selection to** : 
+  * `alt+s`, `t` for literal ignore case search
+  * `alt+s`, `T` for literal case sensitive search
+  * `alt+s`, `r` for regex ignore case search
+  * `alt+s`, `R` for regex case sensitive search
 
 
 Commands
