@@ -4,22 +4,22 @@ Select Plus keymap for Windows
 [
 	// Move Select
 	{ "keys": ["ctrl+left"], "command": "move_in_select", "args": {"forward": false}, "context":
-    [
+		[
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
 		]
 	},
 	{ "keys": ["ctrl+right"], "command": "move_in_select", "args": {"forward": true}, "context":
-    [
+		[
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
 		]
 	},
 	{ "keys": ["alt+left"], "command": "move_select", "args": {"forward": false}, "context":
-    [
+		[
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
 		]
 	},
 	{ "keys": ["alt+right"], "command": "move_select", "args": {"forward": true}, "context":
-    [
+		[
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": false }
 		]
 	},
