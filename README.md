@@ -42,6 +42,9 @@ How to use
   * `alt+s`, `T` for literal case sensitive search
   * `alt+s`, `r` for regex ignore case search
   * `alt+s`, `R` for regex case sensitive search
+* To **select to bookmark** : 
+  * `alt+shift+left` to select to the previous bookmark (if any)
+  * `alt+shift+right` to select to the next bookmark (if any)
 
 
 Commands

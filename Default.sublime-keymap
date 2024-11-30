@@ -39,8 +39,19 @@ Select Plus keymap for Windows
 	{ "keys": ["alt+s", "-"], "command": "manage_select", "args": {"action": "subtract"}},
 	{ "keys": ["alt+s", "x"], "command": "manage_select", "args": {"action": "exchange"}},
 	{ "keys": ["alt+s", "!"], "command": "manage_select", "args": {"action": "inverse"}},
+
+	// Extend Selection
+	// 	Possible actions are
+	//		literal : use literal search
+	//		literal case sensitive : use literal case sensitive search
+	//		regex : use regex search
+	//		regex case sensitive : use regex case sensitive search
 	{ "keys": ["alt+s", "t"], "command": "extend_selection", "args": {"action": "literal"}},
 	{ "keys": ["alt+s", "T"], "command": "extend_selection", "args": {"action": "literal case sensitive"}},
 	{ "keys": ["alt+s", "r"], "command": "extend_selection", "args": {"action": "regex"}},
 	{ "keys": ["alt+s", "R"], "command": "extend_selection", "args": {"action": "regex case sensitive"}},
+	
+	// Select To Bookmark
+	{ "keys": ["alt+shift+left"], "command": "select_to_bookmark"},
+	{ "keys": ["alt+shift+right"], "command": "select_to_bookmark", "args": {"forward": true}},
 ]
